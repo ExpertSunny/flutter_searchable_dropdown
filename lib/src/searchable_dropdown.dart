@@ -30,7 +30,7 @@ class SearchableDropdown<T> extends StatefulWidget {
   final Function? onClear;
   final Function? selectedValueWidgetFn;
   final TextInputType keyboardType;
-  final Function? validator;
+  final String? Function(String?)? validator;
   final bool multipleSelection;
   final List<int> selectedItems;
   final Function? displayItem;
@@ -96,7 +96,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     VoidCallback? onClear,
     VoidCallback? selectedValueWidgetFn,
     TextInputType keyboardType = TextInputType.text,
-    VoidCallback? validator,
+    String? Function(String?)? validator,
     bool assertUniqueValue = true,
     Function? displayItem,
     bool dialogBox = true,
@@ -195,7 +195,7 @@ class SearchableDropdown<T> extends StatefulWidget {
     Function? onClear,
     Function? selectedValueWidgetFn,
     TextInputType keyboardType = TextInputType.text,
-    Function? validator,
+    String? Function(String?)? validator,
     Function? displayItem,
     bool dialogBox = true,
     BoxConstraints? menuConstraints,
@@ -564,7 +564,7 @@ class SearchableDropdownState<T> extends State<SearchableDropdown<T>> {
     const double bottom = 8.0;
     String validatorOutput = '';
     if (widget.validator != null) {
-      validatorOutput = widget.validator?.call(selectedResult);
+      validatorOutput = widget.validator?.call(selectedResult) ?? '';
     }
     var labelOutput = WidgetUtil.prepareWidget(widget.label,
         parameter: selectedResult, stringToWidgetFunction: (string) {
